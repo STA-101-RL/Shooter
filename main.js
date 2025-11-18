@@ -216,16 +216,6 @@ function updateGamepadCamera() {
 // -----------------------------
 // SKYBOX / LIGHTS / SCENE (mantengo tu configuración)
 // -----------------------------
-const cubeLoader = new THREE.CubeTextureLoader();
-cubeLoader.setPath('./UV/');
-const skyboxTexture = cubeLoader.load([
-    'px.png', 'nx.png',
-    'py.png', 'ny.png',
-    'pz.png', 'nz.png'
-]);
-skyboxTexture.colorSpace = THREE.SRGBColorSpace;
-scene.background = skyboxTexture;
-
 const ambient = new THREE.AmbientLight(0xffffff, 0.4);
 scene.add(ambient);
 
