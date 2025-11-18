@@ -328,13 +328,20 @@ function shootBullet(origin, direction) {
 function shoot() {
     if (!timerActive) return;
 
-    const direction = new THREE.Vector3();
-    camera.getWorldDirection(direction);
+    // Origen: posición de la cámara
     const origin = new THREE.Vector3();
     camera.getWorldPosition(origin);
 
+    // Raycaster: desde la cámara hacia la dirección del crosshair 3D
+    const raycaster = new THREE.Raycaster();
+    const crossPos = new THREE.Vector3();
+    crossPos.set(0, 0, -1); // crosshair local
+    crossPos.applyMatrix4(camera.matrixWorld); // pasa a world
+    const direction = crossPos.clone().sub(origin).normalize();
+
     shootBullet(origin, direction);
 }
+
 
 // -----------------------------
 // TIMER (mantengo tu setInterval pero actualizo HUD 3D)
