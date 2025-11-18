@@ -310,21 +310,6 @@ setInterval(() => createEnemy(), 1500);
 // -----------------------------
 let bullets = [];
 
-function shootBullet(origin, direction) {
-    const bullet = new THREE.Mesh(
-        new THREE.SphereGeometry(0.05, 16, 16),
-        new THREE.MeshStandardMaterial({ color: 0xff0000, emissive: 0xaa0000 })
-    );
-    bullet.castShadow = true;
-
-    bullet.position.copy(origin);
-    bullet.userData.direction = direction.clone().normalize();
-    bullet.userData.speed = 1.5;
-
-    bullets.push(bullet);
-    scene.add(bullet);
-}
-
 function shoot() {
     if (!timerActive) return;
 
