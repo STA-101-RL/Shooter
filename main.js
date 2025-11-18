@@ -469,7 +469,7 @@ const startPlaneObj = createCanvasTexture(1024, 512, (ctx, w, h) => {
     ctx.fillStyle = '#ff4444';
     ctx.font = '64px Arial';
     ctx.textAlign = 'center';
-    ctx.fillText('🔴💣   RED BALL SHOOTER   💣🔴', w/2, 120);
+    ctx.fillText('💣   RED BALL SHOOTER   💣', w/2, 120);
     ctx.fillStyle = '#ffff00';
     ctx.font = '36px Arial';
     ctx.fillText('Objetivo: Acierta al mayor número de esferas en 45 segundos', w/2, 220);
@@ -587,19 +587,19 @@ function handleGamepadInput() {
 
     const gp = gamepad;
 
-    // Start (A)
+    // Botón A = inicio
     if (isButtonPressed(gp, [0]) && !gp._wasA) {
         startGame();
     }
     gp._wasA = isButtonPressed(gp, [0]);
 
-    // Restart (B) only available when not timerActive
+    // Botón B = reinicio (solo si el juego terminó)
     if (isButtonPressed(gp, [1]) && !gp._wasB) {
         if (!timerActive) resetGame();
     }
     gp._wasB = isButtonPressed(gp, [1]);
 
-    // Shoot (RT / LT / other)
+    // Trigger / RT / LT = disparar
     const now = performance.now();
     const rtPressed = isButtonPressed(gp, [7, 6, 2]);
     if (rtPressed && (now - lastShootTime >= shootCooldown)) {
