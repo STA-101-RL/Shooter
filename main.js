@@ -313,10 +313,17 @@ let bullets = [];
 function shoot() {
     if (!timerActive) return;
 
+    // dirección global de la cámara (hacia donde mira la cabeza)
     const direction = new THREE.Vector3();
-    camera.getWorldDirection(direction);
+    camera.getWorldDirection(direction);  // apunta donde mira el usuario
+
+    // posición global de la cámara
     const origin = new THREE.Vector3();
     camera.getWorldPosition(origin);
+
+    // offset para que la bala salga delante de la cabeza
+    const offset = direction.clone().multiplyScalar(0.3);
+    origin.add(offset);
 
     shootBullet(origin, direction);
 }
