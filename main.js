@@ -328,18 +328,27 @@ function shootBullet(origin, direction) {
 function shoot() {
     if (!timerActive) return;
 
-    // Origen: posición de la cámara
+    const direction = new THREE.Vector3();
+    camera.getWorldDirection(direction);
     const origin = new THREE.Vector3();
     camera.getWorldPosition(origin);
 
-    // Raycaster: desde la cámara hacia la dirección del crosshair 3D
-    const raycaster = new THREE.Raycaster();
-    const crossPos = new THREE.Vector3();
-    crossPos.set(0, 0, -1); // crosshair local
-    crossPos.applyMatrix4(camera.matrixWorld); // pasa a world
-    const direction = crossPos.clone().sub(origin).normalize();
-
     shootBullet(origin, direction);
+}
+
+function shootBullet(origin, direction) {
+    const bullet = new THREE.Mesh(
+        new THREE.SphereGeometry(0.05, 16, 16),
+        new THREE.MeshStandardMaterial({ color: 0xff0000, emissive: 0xaa0000 })
+    );
+    bullet.castShadow = true;
+
+    bullet.position.copy(origin);
+    bullet.userData.direction = direction.clone().normalize();
+    bullet.userData.speed = 1.5;
+
+    bullets.push(bullet);
+    scene.add(bullet);
 }
 
 
